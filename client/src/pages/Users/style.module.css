@@ -1,0 +1,43 @@
+.userpage {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.link {
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    background-color: #ff83e08a;
+    color: white;
+    border-radius: 30px;
+    transition: 0.25s;
+    text-decoration: none;
+}
+
+.link:hover {
+    background-color: #ff83e0b0;
+}
+
+.userlist {
+    width: 80%;
+}
+
+.useritem {
+    margin: 20px 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border-radius: 30px;
+    background-color: rgba(67, 0, 48, 0.3);
+    color: white;
+    transition: 0.25s;
+    text-decoration: none;
+
+}
+
+.useritem:hover {
+    background-color: rgba(67, 0, 48, 0.5);
+}

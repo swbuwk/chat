@@ -1,0 +1,37 @@
+.start {
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start div {
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.start h1 {
+    margin-bottom: 50px;
+}
+
+.link {
+    text-decoration: none;
+    border-radius: 40px;
+    padding: 10px 50px;
+    border: 3px solid rgba(158,82,179,1);
+
+    font-size: 30px;
+    color: white;
+    transition: 0.25s;
+}
+
+.link:hover {
+    background-color: rgba(158,82,179,1);
+}
