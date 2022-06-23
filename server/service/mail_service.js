@@ -20,7 +20,7 @@ class MailService {
         this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to: mail,
-            subject: `Активация аккаунта на сайте ${process.env.API_URL}`,
+            subject: `Активация аккаунта на сайте https://jwt-chat.herokuapp.com`,
             text: "",
             html: 
                 `

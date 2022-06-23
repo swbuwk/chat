@@ -12,8 +12,7 @@ body, html, #root{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgb(63,94,251);
-    background: linear-gradient(105deg, rgba(63,94,251,1) 5%, rgba(91,13,154,1) 39%, rgba(122,31,162,1) 67%, rgba(158,82,179,1) 100%);
+    background: #251D3A;
 }
 
 h1 {

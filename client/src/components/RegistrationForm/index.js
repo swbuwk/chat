@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { registration } from '../../store/actionCreator'
+import { removeError, setError } from '../../store/errorSlice'
 import styles from "./style.module.css"
 
 
@@ -12,9 +13,16 @@ const RegistrationForm = () => {
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const error = useSelector(state => state.error)
+
+  const formRegistration = (name, email, password) => {
+    dispatch(registration(name, email, password))
+    dispatch(removeError())
+  }
 
   return (
     <form className={styles.regform} onSubmit={e => e.preventDefault()}>
+      <span>{error.type != "unauthorized" ? error.message : ""}</span>
       <input
         onChange={e => setName(e.target.value)}
         value={name}
@@ -31,7 +39,7 @@ const RegistrationForm = () => {
         type="password"
         placeholder="Пароль"
       ></input>
-      <button onClick={() => dispatch(registration(name, email, password))}>Зарегистрироваться</button>
+      <button onClick={() => formRegistration(name, email, password)}>Зарегистрироваться</button>
     </form>
   )
 }

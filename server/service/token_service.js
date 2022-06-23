@@ -47,8 +47,12 @@ class TokenService {
     }
 
     async findToken(refreshToken) {
-        const tokenData = await db.query("SELECT refresh_token FROM token WHERE refresh_token = $1", [refreshToken])
-        return tokenData.rows[0].refresh_token
+        try {
+            const tokenData = await db.query("SELECT refresh_token FROM token WHERE refresh_token = $1", [refreshToken])
+            return tokenData.rows[0].refresh_token
+        } catch(e) {
+            return null
+        }
     }
 }
 

@@ -1,0 +1,109 @@
+.roompage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    color: white;
+}
+
+.link {
+    text-decoration: none;
+    margin-top: 20px;
+    border-radius: 40px;
+    padding: 10px 30px;
+    border: 3px solid rgba(158,82,179,1);
+
+    color: white;
+    transition: 0.25s;
+}
+
+.link:hover {
+    background-color: rgba(158,82,179,1);
+}
+
+.rooms {
+    display: grid;
+    width: 60%;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    margin-bottom: 30px;
+}
+
+.private_rooms {
+    display: grid;
+    width: 60%;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 10px;
+}
+
+.room {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(255, 94, 201, 0.15);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: 0.25s;
+}
+
+.private_room {
+    width: 100%;
+    height: 100px;
+    background-color: rgba(255, 153, 221, 0.15);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: 0.25s;
+}
+
+.private_room:hover {
+    background-color: rgba(253, 179, 228, 0.3);
+}
+
+
+.vip {
+    width: 100%;
+    height: 200px;
+    background-color: #FF7700;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: 0.25s;
+}
+
+.room:hover {
+    background-color: rgba(255, 94, 201, 0.3);
+}
+
+.vip:hover {
+    background-color: #ffa659;
+}
+
+@media screen and (max-width: 600px) {
+    .rooms {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    .room {
+        height: 100px;
+    }
+}

@@ -6,19 +6,32 @@ import Home from "./pages/Home/index"
 import Login from "./pages/Login/index"
 import Users from "./pages/Users/index"
 import SingleUser from "./pages/SingleUser/index"
+import Rooms from './pages/Rooms';
+import SingleRoom from './pages/SingleRoom';
+
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { checkAuth } from './store/actionCreator';
+import useFetch from './hooks/useFetch';
+import Loader from './components/Loader';
+
 
 function App() {
+    const [isLoading, authorization] = useFetch(async () => {
+      dispatch(checkAuth())
+    })
+
 
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
-      dispatch(checkAuth())
+      authorization()
     }, [])
 
+
+    if (isLoading) return (<Loader/>)
+   
   return (
     <BrowserRouter>
       <Routes>
@@ -31,6 +44,10 @@ function App() {
             <Route index element={<Users/>}/>
             <Route path=":id" element={<SingleUser/>}/>
           </Route>
+        </Route>
+        <Route path="rooms">
+            <Route index element={<Rooms/>}/>
+            <Route path=":id" element={<SingleRoom/>}/>
         </Route>
         <Route path="*" element={user.isAuth ? <Navigate to="/home"/> : <Navigate to="/start"/>} />
       </Routes>

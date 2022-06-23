@@ -1,10 +1,15 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:5000/api"
+const API_URL = "https://jwt-chat.herokuapp.com/api"
+const SERVER_URL = "https://jwt-chat.herokuapp.com"
+// const API_URL = "http://localhost:5000/api"
+// const SERVER_URL = "http://localhost:5000"
+
+export {API_URL, SERVER_URL}
 
 const api = axios.create({
+    baseURL: API_URL,
     withCredentials: true,
-    baseURL: API_URL
 })
 
 api.interceptors.request.use((config) => {

@@ -17,7 +17,12 @@
     color: white;
     margin-top: 30px;
     padding: 10px 30px;
-    background-color: rgb(96, 0, 40);
+    background-color: #1f1731;
     text-decoration: none;
 
+    transition: 0.25s;
+}
+
+.link:hover {
+    background-color:#2A2550;
 }

@@ -20,7 +20,21 @@
 }
 
 .userlist {
-    width: 80%;
+    margin-top: 10px;
+    width: 70%;
+    max-width: 70%;
+    max-height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.userlist::-webkit-scrollbar {
+    width: 2px;
+    background-color: transparent;
+}
+
+.userlist::-webkit-scrollbar-thumb {
+    background-color: #1f1731;
 }
 
 .useritem {

@@ -1,11 +1,13 @@
 import styles from "./style.module.css"
 import RegistrationForm from "../../components/RegistrationForm/index"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, Navigate } from "react-router-dom"
+import { removeError } from "../../store/errorSlice"
 
 const Registration = () => {
 
   const {isAuth} = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   return (
       isAuth
@@ -15,7 +17,7 @@ const Registration = () => {
       <div className={styles.reg}>
         <h1>Регистрация</h1>
         <RegistrationForm/>
-        <Link to="/login" className={styles.link}>Вход</Link>
+        <Link to="/login" className={styles.link} onClick={() => dispatch(removeError())}>Вход</Link>
       </div>
   )
 }

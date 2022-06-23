@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+
 export const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -7,7 +8,7 @@ export const userSlice = createSlice({
         name: "",
         email: "",
         id: "",
-        isActivated: false
+        isActivated: false,
     },
     reducers: {
         setUserData(state, actions) {
@@ -25,9 +26,13 @@ export const userSlice = createSlice({
             state.email = ""
             state.id = ""
             state.isActivated = false
+        },
+
+        addRoom(state, actions) {
+            state.rooms.push(actions.payload)
         }
     }
 })
 
 export default userSlice.reducer
-export const {setUserData, eraseUserData} = userSlice.actions
+export const {setUserData, eraseUserData, addRoom} = userSlice.actions

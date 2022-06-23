@@ -25,6 +25,10 @@
     transition: 0.25s;
 }
 
+.loginform span {
+    color: rgb(189, 41, 0);
+}
+
 .loginform button:hover {
     filter: hue-rotate(10deg);
 }

@@ -25,6 +25,10 @@
     transition: 0.25s;
 }
 
+.regform span {
+    color: rgb(189, 41, 0);
+}
+
 .regform button:hover {
     filter: hue-rotate(10deg);
 }

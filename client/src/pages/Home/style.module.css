@@ -24,13 +24,18 @@
     padding: 10px 30px;
     border: none;
     border-radius: 10px;
-    background-color: rgb(108, 31, 63);
+    background-color: #1f1731;
     transition: 0.25s;
     margin-top: 20px;
 }
 
+.home button:hover {
+    background-color:#2A2550;
+}
+
 .link {
     text-decoration: none;
+    margin-bottom: 10px;
     border-radius: 40px;
     padding: 10px 30px;
     border: 3px solid rgba(158,82,179,1);

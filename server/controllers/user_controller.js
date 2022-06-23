@@ -7,11 +7,17 @@ class UserController {
         try {
             const validationErrors = validationResult(req)
             if (!validationErrors.isEmpty()) {
-                return next(ApiError.badRequest("Неправильно введены некоторые поля", validationErrors.array()))
+                const param = validationErrors.errors[0].param
+                if (param === "name")
+                return next(ApiError.badRequest("Никнейм должен быть в диапазоне от 2 до 30 символов", validationErrors.array()))
+                if (param === "email")
+                return next(ApiError.badRequest("Некорректный email", validationErrors.array()))
+                if (param === "password")
+                return next(ApiError.badRequest("Пароль от 8 до 16 символов", validationErrors.array()))
             }
             const {name, email, password} = req.body
             const userData = await userService.registartion(name, email, password)
-            res.cookie("refreshToken", userData.refreshToken, {maxAge: 30 * 24 * 3600 * 1000, httpOnly: true})
+            res.cookie("refreshToken", userData.refreshToken, {sameSite: "none", secure: true, maxAge: 30 * 24 * 3600 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e) {
             next(e)
@@ -22,7 +28,7 @@ class UserController {
         try {
             const {email, password} = req.body
             const userData = await userService.login(email, password)
-            res.cookie("refreshToken", userData.refreshToken, {maxAge: 30 * 24 * 3600 * 1000, httpOnly: true})
+            res.cookie("refreshToken", userData.refreshToken, {sameSite: "none", secure: true, maxAge: 30 * 24 * 3600 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e) {
             next(e)
@@ -32,8 +38,9 @@ class UserController {
     async logout(req, res, next) {
         try {
             const {refreshToken} = req.cookies
-            const token = await userService.logout(refreshToken)
-            res.clearCookie("refreshToken")
+            const {email} = req.body
+            const token = await userService.logout(refreshToken, email)
+            res.clearCookie("refreshToken", {sameSite: "none"})
             return res.json(token)
         } catch(e) {
             next(e)
@@ -44,8 +51,23 @@ class UserController {
         try {
             const activationLink = req.params.link
             await userService.activate(activationLink)
-            return res.redirect(process.env.CLIENT_URL)
+            return res.redirect("https://jwt-chat-client.herokuapp.com/home")
+        } catch(e) {
+            next(e)
+        }
+    }
 
+    async sendActivationLink (req, res, next) {
+        try {
+            const {id} = req.params
+            const isActivated = (await db.query("SELECT is_activated FROM person WHERE id = $1", [id])).rows[0].is_activated
+            if (isActivated) {
+                next(ApiError.badRequest("Ваш аккаунт уже активирован", "activation_link"))
+                return
+            }
+            const info = (await db.query("SELECT activation_link, email FROM person WHERE id = $1", [id])).rows[0]
+            mailService.sendActivationMail(info.email, `https://jwt-chat.herokuapp.com/api/activate/${info.activation_link}`)
+            return res.json(info.rows)
         } catch(e) {
             next(e)
         }
@@ -55,7 +77,7 @@ class UserController {
         try {
             const {refreshToken} = req.cookies
             const userData = await userService.refresh(refreshToken)
-            res.cookie("refreshToken", userData.refreshToken, {maxAge: 30 * 24 * 3600 * 1000, httpOnly: true})
+            res.cookie("refreshToken", userData.refreshToken, {sameSite: "none", secure: true, maxAge: 30 * 24 * 3600 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e) {
             next(e)

@@ -2,6 +2,7 @@ import AuthService from "../services/AuthService"
 import { setUserData, eraseUserData } from "./userSlice"
 import axios from "axios"
 import { API_URL } from "../http"
+import { setError } from "./errorSlice"
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -10,7 +11,7 @@ export const login = (email, password) => async (dispatch) => {
         localStorage.setItem("token", accessToken)
         dispatch(setUserData(res.data))
     } catch(e) {
-        console.log(e)
+        dispatch(setError(e.response.data))
     }
 }
 
@@ -21,7 +22,7 @@ export const registration = (name, email, password) => async (dispatch) => {
         localStorage.setItem("token", accessToken)
         dispatch(setUserData(res.data))
     } catch(e) {
-        console.log(e)
+        dispatch(setError(e.response.data))
     }
 }
 
@@ -32,16 +33,16 @@ export const checkAuth = () => async (dispatch) => {
           localStorage.setItem("token", accessToken)
           dispatch(setUserData(res.data))
       } catch(e) {
-          console.log(e)
+          dispatch(setError(e.response.data))
       }
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = (email) => async (dispatch) => {
     try {
-        const res = await AuthService.logout()
+        await AuthService.logout(email)
         localStorage.removeItem("token")
         dispatch(eraseUserData())
     } catch(e) {
-        console.log(e)
+        dispatch(setError(e.response.data))
     }
 }
